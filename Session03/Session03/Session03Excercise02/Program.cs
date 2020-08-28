@@ -11,29 +11,28 @@ namespace Session03Excercise02
             string[] inputArray = input.Split(",", StringSplitOptions.RemoveEmptyEntries);
             double sum = 0;
 
-            double[] numberArray = new double[inputArray.Length];
+            double?[] numberArray = new double?[inputArray.Length];
             for (int i = 0; i < inputArray.Length; i++)
             {
-                try
-                {
-                    numberArray[i] = Convert.ToDouble(inputArray[i]);
-                }
-                catch (Exception)
-                {
-                    numberArray[i] = 0;
-                }
-            }
+                bool parsed = double.TryParse(inputArray[i], out double parsedValue);
+                if (parsed) numberArray[i] = parsedValue;
+                else numberArray[i] = null;
 
-            double highestValue = numberArray[0];
-            double lowestValue = numberArray[0];
+            }
+            double highestValue = (double)numberArray[0];
+            double lowestValue = (double)numberArray[0];
+
 
             foreach (var number in numberArray)
             {
-                sum += number;
-                foreach(var number2 in numberArray)
+                if (number != null)
                 {
-                    if ((number > number2) & (number > highestValue)) highestValue = number;
-                    if ((number < number2) & (number < lowestValue)) lowestValue = number;
+                    sum += (double)number;
+                    foreach (var number2 in numberArray)
+                    {
+                        if ((number > number2) & (number > highestValue)) highestValue = (double)number;
+                        if ((number < number2) & (number < lowestValue)) lowestValue = (double)number;
+                    }
                 }
             }
             double average = sum / inputArray.Length;
