@@ -8,20 +8,25 @@ namespace Session03Excercise02
         {
             Console.WriteLine("Ange ett antal siffror, separerat med kommatecken.");
             string input = Console.ReadLine();
-            string[] inputArray = input.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            string[] inputArray = input.Split(".", StringSplitOptions.RemoveEmptyEntries);
             double sum = 0;
-
+            double highestValue = 0;
+            double lowestValue = 0;
             double?[] numberArray = new double?[inputArray.Length];
             for (int i = 0; i < inputArray.Length; i++)
             {
                 bool parsed = double.TryParse(inputArray[i], out double parsedValue);
-                if (parsed) numberArray[i] = parsedValue;
+
+                if (parsed)
+                { 
+                    Console.WriteLine(parsedValue);
+                    highestValue = parsedValue;
+                    lowestValue = parsedValue;
+                    numberArray[i] = parsedValue;
+                }
                 else numberArray[i] = null;
 
             }
-            double highestValue = (double)numberArray[0];
-            double lowestValue = (double)numberArray[0];
-
 
             foreach (var number in numberArray)
             {
