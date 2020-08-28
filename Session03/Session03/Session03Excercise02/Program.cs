@@ -7,24 +7,36 @@ namespace Session03Excercise02
         static void Main(string[] args)
         {
             Console.WriteLine("Ange ett antal siffror, separerat med kommatecken.");
-            var input = Console.ReadLine();
-            var inputArray = input.Split(",", StringSplitOptions.RemoveEmptyEntries);
-            var sum = 0m;
-            int highestValue = Convert.ToInt32(inputArray[0]);
-            int lowestValue = Convert.ToInt32(inputArray[0]);
-            foreach (var number in inputArray)
-            {
-                int numberInteger = Convert.ToInt32(number);
-                sum += numberInteger;
+            string input = Console.ReadLine();
+            string[] inputArray = input.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            double sum = 0;
 
-                foreach (var number2 in inputArray)
+            double[] numberArray = new double[inputArray.Length];
+            for (int i = 0; i < inputArray.Length; i++)
+            {
+                try
                 {
-                    int numberInteger2 = Convert.ToInt32(number2);
-                    if ((numberInteger > numberInteger2) & (numberInteger > highestValue)) highestValue = numberInteger;
-                    if ((numberInteger < numberInteger2) & (numberInteger < lowestValue)) lowestValue = numberInteger;
+                    numberArray[i] = Convert.ToDouble(inputArray[i]);
+                }
+                catch (Exception)
+                {
+                    numberArray[i] = 0;
                 }
             }
-            var average = sum / inputArray.Length;
+
+            double highestValue = numberArray[0];
+            double lowestValue = numberArray[0];
+
+            foreach (var number in numberArray)
+            {
+                sum += number;
+                foreach(var number2 in numberArray)
+                {
+                    if ((number > number2) & (number > highestValue)) highestValue = number;
+                    if ((number < number2) & (number < lowestValue)) lowestValue = number;
+                }
+            }
+            double average = sum / inputArray.Length;
             Console.WriteLine("medelvärde är: " + average);
             Console.WriteLine("högsta värde är: " + highestValue);
             Console.WriteLine("lägsta värde är: " + lowestValue);
