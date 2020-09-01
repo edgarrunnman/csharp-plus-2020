@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Globalization;
 
 namespace Session03Excercise02
 {
@@ -27,6 +29,9 @@ namespace Session03Excercise02
                 else numberArray[i] = null;
 
             }
+            catch (Exception ex)
+            {
+                exceptionResult = ex.HResult;
 
             foreach (var number in numberArray)
             {
